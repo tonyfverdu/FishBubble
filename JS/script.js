@@ -61,7 +61,7 @@ const BG = {
     height : my_canvas.height
 };
 
-const valueRandom   = Math.floor(Math.random() * 3 + 1);  //  In Class Bubble
+const valueRandom                       = Math.floor(Math.random() * 3 + 1);  //  In Class Bubble
 
 const arrayEnemies                      = [];    //  Array und ObjeKt Enemies 
 const arrayBubbles                      = [];    //  Array von Blasen im Meer //  --> Array of Bubbles in the canvas
@@ -101,6 +101,51 @@ let trackRigth          = 0;
 let moveRigth           = false;
 let moveLeft            = true;
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//  GLOBAL DATA JSON        *************************************************************************************
+//  1.- Ini JSON of Fisch Objekt (constructor method argument value)
+const iniFisch = {
+    posX        : 0,
+    posY        : my_canvas.height/2,
+    radius      : 28,
+    color       : 'transparent',
+    angle       : 0,
+    frameX      : 0,
+    frameY      : 0,
+    frame       : 0, 
+    spriteX     : 498, 
+    spriteY     : 327
+};
+//  GLOBAL DATA JSON        *************************************************************************************
+//  2.- Ini JSON of Fisch Enemy Objekt (constructor method argument value)
+const iniEnemy = {
+    posX            : my_canvas.width + 200,
+    posY            : Math.round(Math.random()*(my_canvas.height - 150)) + 90,
+    radius          : 25,
+    color           : 'transparent',
+    frameX          : 0,
+    frameY          : 0,
+    frame           : 0, 
+    spriteX         : 418, 
+    spriteY         : 270
+};
+
+//  GLOBAL DATA JSON        *************************************************************************************
+//  3.- Ini JSON of Bubble Objekt (constructor method argument value)
+const iniBubble = {
+    speed                   : Math.floor(Math.random() * 3.5 + 1),
+    posXBubble              : Math.random() * my_canvas.width,
+    posYBubble              : Math.random() * my_canvas.height,
+    //posYBubble              : 0.9 * my_canvas.height,
+    radius                  : Math.floor(Math.random() * 9 + 4),
+    distance                : 0,
+    countedCollision        : false,
+    colorRandom             : 'hsl('+ Math.floor(Math.random()*360) + ', 60%, 60%)'
+};
+
+////  GLOBAL FUNCTIONS      ******************************************************************************************                                                           //      Sintaxis:  element.getBoundingClientRect();
 //Functionen der Bewegung
 function updateFrame () {
     setInterval ( function () {
@@ -158,52 +203,6 @@ function drawFrame () {
         vctx.drawImage (objfischRigth2 , srcX, srcY, imgW, imgH, xIni, yIni, imgW/8, imgH/8);
     } 
 }
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//  GLOBAL DATA JSON        *************************************************************************************
-//  1.- Ini JSON of Fisch Objekt (constructor method argument value)
-const iniFisch = {
-    posX        : 0,
-    posY        : my_canvas.height/2,
-    radius      : 28,
-    color       : 'transparent',
-    angle       : 0,
-    frameX      : 0,
-    frameY      : 0,
-    frame       : 0, 
-    spriteX     : 498, 
-    spriteY     : 327
-};
-//  GLOBAL DATA JSON        *************************************************************************************
-//  2.- Ini JSON of Fisch Enemy Objekt (constructor method argument value)
-const iniEnemy = {
-    posX            : my_canvas.width + 200,
-    posY            : Math.round(Math.random()*(my_canvas.height - 150)) + 90,
-    radius          : 25,
-    color           : 'transparent',
-    frameX          : 0,
-    frameY          : 0,
-    frame           : 0, 
-    spriteX         : 418, 
-    spriteY         : 270
-};
-
-//  GLOBAL DATA JSON        *************************************************************************************
-//  3.- Ini JSON of Bubble Objekt (constructor method argument value)
-const iniBubble = {
-    speed                   : Math.floor(Math.random() * 3.5 + 1),
-    posXBubble              : Math.random() * my_canvas.width,
-    posYBubble              : Math.random() * my_canvas.height,
-    //posYBubble              : 0.9 * my_canvas.height,
-    radius                  : Math.floor(Math.random() * 9 + 4),
-    distance                : 0,
-    countedCollision        : false,
-    colorRandom             : 'hsl('+ Math.floor(Math.random()*360) + ', 60%, 60%)'
-};
-
-////  GLOBAL FUNCTIONS      ******************************************************************************************                                                           //      Sintaxis:  element.getBoundingClientRect();
 
 function zeichenScore () {      // paint of Score
     let textScore                                   = "Score Bubble Fisch: ";
@@ -431,7 +430,7 @@ class FischEnemy  extends Fisch {
     }
 
     drawEnemy () {
-        vctx.lineWidth                          =  0.2;
+        vctx.lineWidth                          =  0.1;
         vctx.fillStyle = this.color;
         vctx.save();
             vctx.beginPath();
@@ -440,7 +439,7 @@ class FischEnemy  extends Fisch {
             vctx.closePath();
         
             vctx.drawImage( enemyImage, this.frameX * this.spriteX , this.frameY * this.spriteY, this.spriteX, 
-            this.spriteY,this.x - 18, this.y - 18, this.radius * 1.9, this.radius * 1.95 );
+            this.spriteY,this.x - 20, this.y - 22, this.radius * 1.84, this.radius * 1.84);
         vctx.restore();    
     }
 
@@ -451,7 +450,7 @@ class FischEnemy  extends Fisch {
 }
 
 function handleEnemies (parObjectIniEnemy) {
-    if (numFrame % 300 == 0) {  // Enemies entstehen alle 400 Frames ...
+    if (numFrame % 400 == 0) {  // Enemies entstehen alle 400 Frames ...
         arrayEnemies.push (new FischEnemy(parObjectIniEnemy));
         console.log('Nº de elementos del array de enemigos: ' + arrayEnemies.length);
     }
@@ -462,9 +461,9 @@ function handleEnemies (parObjectIniEnemy) {
         if (arrayEnemies[i].x < 0) {
             setTimeout (() => {
                 arrayEnemies.splice(i, 1);
-            }, 50);
+            }, 10);
             console.log('Nº de elementos del array de enemigos borrados?: ' + arrayEnemies.length );
-            i--;
+            //i--;
         } 
         /*
         else if (arrayEnemies [i]) {
@@ -709,7 +708,7 @@ for (let index2 = 0; index2 < arrayBubbles[i].radius * 5; index2++) {
 const objectFisch                       = new Fisch(iniFisch);
 
 //  2.- Eins Fisch Enemy Objekt
-const objectEnemy                       = new FischEnemy (iniEnemy);
+//2 const objectEnemy                       = new FischEnemy (iniEnemy);
 
 ////    ANIMATION OF PROGRAM    **************************************************************************************
 // Function animate ()
