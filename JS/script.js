@@ -722,7 +722,7 @@ function animate () {
     entstehenBubbles ();
 
     Fisch.handleFisch           (objectFisch);
-    FischEnemy.handleFischEnemy (objectEnemy);
+    //FischEnemy.handleFischEnemy (objectEnemy);
 
     handleEnemies (iniEnemy);
 
