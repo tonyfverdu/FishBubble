@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400&display=swap");
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    width:   100%; 
+    height: 100vh;
+    display: flex;
+    align-items:      center;
+    justify-content:  center;
+    overflow: hidden;
+    background: linear-gradient(to bottom, black 70%, rgb(102, 1, 1) 85%, red);
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    font-family: "Roboto", sans-serif;
+}
+.containerCentral {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  width: auto;
+  margin: auto;
+  transform-style: preserve-3d;
+  /*transform: rotateX(1deg); */
+
+  animation: change-color 5s alternate-reverse ease-in-out infinite;
+}
+#idmyCanvas {
+    position: relative;
+    display: block;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18; 
+    font-weight: bold;
+    background: linear-gradient(#90dbe5, transparent) rgb(31, 66, 90);
+    border: 1px solid rgb(69, 69, 92);
+}
+@media only screen and (max-width: 1100px) {
+    #idmyCanvas {
+      width:    900px;
+      height:   480px; 
+      font-size: 20;
+    }
+  }
+@media only screen and (max-width: 900px) {
+    #idmyCanvas {
+      width:    780px;
+      height:   480px; 
+      font-size: 22; 
+    }
+  }
+@media only screen and (max-width: 600px) {
+    #idmyCanvas {
+      width:    550px;
+      height:   500px; 
+      font-size: 24; 
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    #idmyCanvas {
+      width:    430px;
+      height:   360px; 
+      font-size: 26; 
+    }
+  }
+
+  @keyframes change-color {
+    0% {
+      background: rgba(149, 91, 3, 0.3);
+    }
+    10% {
+      background: rgba(255, 0, 0, 0.3);
+    }
+    20% {
+      background: rgba(149, 91, 3, 0.3);
+    }
+    30% {
+      background: rgba(255, 255, 0, 0.3);
+    }
+    40% {
+      background: rgba(149, 91, 3, 0.3);
+    }
+    50% {
+      background: rgba(0, 128, 0, 0.3);
+    }
+    60% {
+      background: rgba(149, 91, 3, 0.3);
+    }
+    70% {
+      background: rgba(0, 0, 255, 0.3);
+    }
+    80% {
+      background: rgba(149, 91, 3, 0.3);
+    }
+    90% {
+      background: rgba(149, 3, 142, 0.3);
+    }
+    100% {
+      background: rgba(149, 91, 3, 0.3);
+    }
+  }
